@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digestive System Adventure | ม.5</title>
+<style>
+:root{--navy:#132744;--blue:#2364aa;--teal:#16a394;--gold:#ffc857;--pink:#f08cae;--cream:#fffaf0;--ink:#1c2b3a;--muted:#627184;--white:#fff;--line:#dce5ed}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:linear-gradient(145deg,#e8f5ff,#f7f2ff 55%,#fff5e7);color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:18px max(18px,calc((100% - 1120px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-size:1.25rem;font-weight:850;letter-spacing:.2px}.brand small{display:block;font-size:.8rem;font-weight:500;color:#c9d9ec}
+button,select,input{font:inherit}button{border:0;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:750;transition:.15s}button:hover{transform:translateY(-1px);filter:brightness(1.03)}button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #ffbf47;outline-offset:2px}
+.lang{background:#fff;color:var(--navy)}.primary{background:var(--blue);color:#fff}.teal{background:var(--teal);color:#fff}.gold{background:var(--gold);color:#3c2d00}.secondary{background:#eaf0f6;color:#24384e}.danger{background:#ffe4e9;color:#9b2340}
+main{max-width:1120px;margin:22px auto;padding:0 16px 42px}.hero{background:linear-gradient(120deg,#1c4d83,#1d8c9a);color:#fff;border-radius:24px;padding:24px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:center;box-shadow:0 12px 32px #1b426522}
+.hero h1{margin:0 0 8px;font-size:clamp(1.55rem,3.5vw,2.5rem);line-height:1.15}.hero p{margin:6px 0;color:#e6f8ff}.hero-art{font-size:clamp(4rem,10vw,7rem);text-align:center;filter:drop-shadow(0 6px 0 #12345a33)}
+.panel{background:#ffffffeb;border:1px solid #ffffff;border-radius:20px;padding:20px;margin-top:18px;box-shadow:0 7px 22px #223b5510}.panel h2,.panel h3{margin-top:0;color:var(--navy)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.field{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}.field label{font-weight:700;font-size:.92rem}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:11px;background:#fff;color:var(--ink)}
+.progressline{height:10px;background:#e5ebf2;border-radius:99px;overflow:hidden}.progressline span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#9cdb76);width:0;transition:width .25s}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.stat{background:#f1f7fb;border-radius:12px;padding:10px 13px;font-weight:750}.stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.stage{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff}.stage.locked{opacity:.55;background:#f1f3f6}.stage .emoji{font-size:1.8rem}.stage h3{margin:5px 0}.stage p{font-size:.9rem;color:var(--muted);min-height:40px}.stage button{width:100%}
+.game{display:none}.game.active{display:block}.stagehead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}.pill{background:#e7f7f5;color:#096f67;border-radius:99px;padding:6px 10px;font-weight:800;font-size:.85rem}
+.sim-layout{display:grid;grid-template-columns:1fr 1fr;gap:18px}.diagram{background:linear-gradient(180deg,#f2faff,#fff5f7);border:1px solid var(--line);border-radius:18px;padding:12px;min-height:340px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden}.diagram svg{width:min(100%,390px);max-height:460px}.diagram-note{font-size:.88rem;color:var(--muted);text-align:center}
+.control{margin:12px 0}.control label{display:flex;justify-content:space-between;gap:10px;font-weight:750;margin-bottom:7px}.control select,.control input[type=range]{width:100%}.control select{padding:10px;border:1px solid var(--line);border-radius:10px;background:#fff}.matching{display:grid;grid-template-columns:1fr 1fr;gap:10px}.result{border-radius:12px;background:#f0f8f6;border-left:4px solid var(--teal);padding:12px;margin-top:12px;min-height:70px}.result.bad{background:#fff2f1;border-color:#d65d63}.question{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fff}.question p{margin:0 0 10px;font-weight:750}.choices{display:grid;gap:7px}.choices label{padding:9px 10px;background:#f5f8fb;border-radius:9px;cursor:pointer}.choices input{margin-right:7px}.feedback{font-size:.9rem;margin-top:8px;font-weight:700}
+.foodpath{display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;margin:12px}.organ{background:#fff;border:2px solid #c7d9e8;border-radius:12px;padding:9px;text-align:center;min-width:88px;font-size:.85rem;font-weight:750}.organ.current{border-color:#ffad31;background:#fff3d4;box-shadow:0 0 0 3px #ffc85744}.arrow{color:#7792a8;font-weight:900}.callout{background:#fff8df;border:1px solid #f4df99;border-radius:12px;padding:12px;font-size:.9rem}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:16px}
+.certificate{border:8px double #d5a83d;background:#fffdf4;padding:25px;text-align:center;border-radius:14px;color:#17324f}.certificate h2{font-family:Georgia,serif;color:#9b6a08;font-size:2rem}.certificate .student{font-size:1.5rem;font-weight:850;border-bottom:1px solid #d5a83d;display:inline-block;padding:4px 20px}.hidden{display:none!important}
+@media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{display:none}.grid,.sim-layout{grid-template-columns:1fr}.stages{grid-template-columns:1fr}.stage p{min-height:0}.matching{grid-template-columns:1fr 1fr}.panel{padding:15px}}
+@media print{header,main>.hero,main>.panel:not(#certificatePanel),footer,.no-print{display:none!important}body{background:#fff}.certificate{margin:25px;border:8px double #b18b2c}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">🧭 Digestive System Adventure <small>ผจญภัยระบบย่อยอาหาร • วิทยาศาสตร์ชีวภาพ ม.5</small></div>
+ <button class="lang" id="langBtn" aria-label="Switch language">EN / TH</button>
+</header>
+<main>
+<section class="hero">
+ <div><h1 data-th="ผจญภัยระบบย่อยอาหาร" data-en="Digestive System Adventure">ผจญภัยระบบย่อยอาหาร</h1>
+ <p data-th="ภารกิจของคุณ: พาอาหารเดินทางผ่านอวัยวะต่าง ๆ จับคู่เอนไซม์ให้ถูกต้อง และค้นพบว่าสารอาหารเปลี่ยนไปอย่างไร" data-en="Your mission: guide food through the organs, match enzymes correctly, and discover how nutrients change.">ภารกิจของคุณ: พาอาหารเดินทางผ่านอวัยวะต่าง ๆ จับคู่เอนไซม์ให้ถูกต้อง และค้นพบว่าสารอาหารเปลี่ยนไปอย่างไร</p>
+ <p>🎯 <span data-th="3 ด่าน • 30 คะแนน • แบบทดสอบท้ายกิจกรรม 5 ข้อ" data-en="3 stages • 30 points • 5-question review">3 ด่าน • 30 คะแนน • แบบทดสอบท้ายกิจกรรม 5 ข้อ</span></p></div>
+ <div class="hero-art" aria-hidden="true">🍎 ➜ 🧑‍🔬</div>
+</section>
+<section class="panel" id="profilePanel">
+ <h2 data-th="👩‍🚀 ลงทะเบียนนักสำรวจ" data-en="👩‍🚀 Explorer registration">👩‍🚀 ลงทะเบียนนักสำรวจ</h2>
+ <p data-th="กรอกข้อมูลเพื่อแสดงชื่อบนหน้าสรุปและเกียรติบัตร ข้อมูลจะถูกเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น" data-en="Enter your details for the summary and certificate. Data stays in this browser on this device.">กรอกข้อมูลเพื่อแสดงชื่อบนหน้าสรุปและเกียรติบัตร ข้อมูลจะถูกเก็บไว้ในเบราว์เซอร์เครื่องนี้เท่านั้น</p>
+ <div class="grid">
+  <div class="field"><label for="firstName" data-th="ชื่อ" data-en="First name">ชื่อ</label><input id="firstName" autocomplete="given-name" placeholder="ชื่อ"></div>
+  <div class="field"><label for="lastName" data-th="นามสกุล" data-en="Last name">นามสกุล</label><input id="lastName" autocomplete="family-name" placeholder="นามสกุล"></div>
+  <div class="field"><label for="className" data-th="ชั้น / ห้อง" data-en="Class / room">ชั้น / ห้อง</label><input id="className" placeholder="เช่น ม.5/1"></div>
+  <div class="field"><label for="studentNo" data-th="เลขที่" data-en="Student number">เลขที่</label><input id="studentNo" inputmode="numeric" placeholder="เลขที่"></div>
+ </div>
+ <button class="primary" id="saveProfile" data-th="บันทึกข้อมูลและเริ่มภารกิจ" data-en="Save profile & start">บันทึกข้อมูลและเริ่มภารกิจ</button>
+ <span id="profileMsg" role="status"></span>
+</section>
+<section class="panel" id="dashboard">
+ <div class="stagehead"><div><h2 data-th="🗺️ แผนที่ภารกิจ" data-en="🗺️ Mission map">🗺️ แผนที่ภารกิจ</h2><p data-th="ผ่านแต่ละด่านเพื่อปลดล็อกด่านถัดไป" data-en="Complete each stage to unlock the next.">ผ่านแต่ละด่านเพื่อปลดล็อกด่านถัดไป</p></div><div class="stat">⭐ <span data-th="คะแนน" data-en="Score">คะแนน</span>: <span id="score">0</span>/30</div></div>
+ <div class="progressline"><span id="progress"></span></div><div class="stats"><div class="stat">🏅 <span data-th="ผ่านแล้ว" data-en="Completed">ผ่านแล้ว</span>: <span id="completed">0</span>/3</div><div class="stat">🧠 <span data-th="โหมดจำลองพร้อมใช้งาน ไม่ต้องใช้อินเทอร์เน็ต" data-en="Simulation works offline">โหมดจำลองพร้อมใช้งาน ไม่ต้องใช้อินเทอร์เน็ต</span></div></div>
+ <div class="stages" style="margin-top:16px">
+  <article class="stage" id="stageCard0"><div class="emoji">👄</div><h3>Mouth Mission</h3><p data-th="บดเคี้ยว กลืน และเริ่มย่อยแป้ง" data-en="Chew, swallow, and begin starch digestion">บดเคี้ยว กลืน และเริ่มย่อยแป้ง</p><button class="primary" id="open0" data-th="เริ่มด่าน 1" data-en="Start stage 1">เริ่มด่าน 1</button></article>
+  <article class="stage locked" id="stageCard1"><div class="emoji">🧪</div><h3>Stomach Challenge</h3><p data-th="สำรวจกรด เพปซิน น้ำดี และเอนไซม์ตับอ่อน" data-en="Explore acid, pepsin, bile, and pancreatic enzymes">สำรวจกรด เพปซิน น้ำดี และเอนไซม์ตับอ่อน</p><button class="primary" id="open1" disabled data-th="ล็อกอยู่" data-en="Locked">ล็อกอยู่</button></article>
+  <article class="stage locked" id="stageCard2"><div class="emoji">🌱</div><h3>Intestine Escape</h3><p data-th="ดูดซึมสารอาหารและจัดการกากอาหาร" data-en="Absorb nutrients and process waste">ดูดซึมสารอาหารและจัดการกากอาหาร</p><button class="primary" id="open2" disabled data-th="ล็อกอยู่" data-en="Locked">ล็อกอยู่</button></article>
+ </div>
+</section>
+<section class="panel game" id="gamePanel">
+ <div class="stagehead"><div><span class="pill" id="stagePill">STAGE 1</span><h2 id="gameTitle">Mouth Mission</h2><p id="gameIntro"></p></div><button class="secondary" id="backBtn" data-th="← กลับแผนที่" data-en="← Mission map">← กลับแผนที่</button></div>
+ <div class="sim-layout">
+  <div class="diagram">
+   <svg viewBox="0 0 360 430" role="img" aria-label="Colorful semi-realistic illustration of the human digestive system">
+    <defs>
+      <linearGradient id="skin" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffe0c8"/><stop offset=".55" stop-color="#f4b9a8"/><stop offset="1" stop-color="#df8e8d"/></linearGradient>
+      <linearGradient id="mouth" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d94f78"/><stop offset="1" stop-color="#9d294f"/></linearGradient>
+      <linearGradient id="esophagus" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f7b36c"/><stop offset=".45" stop-color="#ffe0a0"/><stop offset="1" stop-color="#dc8051"/></linearGradient>
+      <linearGradient id="stomach" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb0a2"/><stop offset=".45" stop-color="#e97978"/><stop offset="1" stop-color="#b9445c"/></linearGradient>
+      <linearGradient id="liver" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#a94d43"/><stop offset=".5" stop-color="#82372f"/><stop offset="1" stop-color="#5c292d"/></linearGradient>
+      <linearGradient id="intestine" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ffb28c"/><stop offset=".5" stop-color="#ed796c"/><stop offset="1" stop-color="#c94f5c"/></linearGradient>
+      <linearGradient id="colon" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9ccf9b"/><stop offset=".5" stop-color="#5aa889"/><stop offset="1" stop-color="#347c71"/></linearGradient>
+      <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="1" dy="3" stdDeviation="3" flood-color="#5a3440" flood-opacity=".22"/></filter>
+    </defs>
+    <!-- soft torso silhouette -->
+    <path d="M123 17 Q180 -3 237 17 Q265 35 271 75 L292 142 Q300 164 282 184 L263 205 Q275 248 267 298 Q258 365 224 409 L136 409 Q102 365 93 298 Q85 248 97 205 L78 184 Q60 164 68 142 L89 75 Q95 35 123 17Z" fill="url(#skin)" opacity=".42" stroke="#d78d91" stroke-width="2"/>
+    <!-- oral cavity, teeth and tongue -->
+    <g filter="url(#shadow)">
+      <path d="M148 31 Q180 16 212 31 Q220 41 209 53 Q180 67 151 53 Q140 41 148 31Z" fill="url(#mouth)" stroke="#9f3854" stroke-width="2"/>
+      <path d="M153 32 Q180 24 207 32 L202 41 Q180 47 158 41Z" fill="#fff9e8" stroke="#d8b8b5" stroke-width="1.5"/>
+      <path d="M158 49 Q180 40 202 49 Q190 62 180 59 Q168 61 158 49Z" fill="#ff8caa" stroke="#c84970" stroke-width="1.5"/>
+      <path d="M168 44 L168 49 M180 44 L180 49 M192 44 L192 49" stroke="#d6a6a3" stroke-width="1.5"/>
+    </g>
+    <!-- esophagus -->
+    <path d="M174 60 C171 82 178 94 176 112 C175 123 181 132 188 139" fill="none" stroke="#bd7047" stroke-width="17" stroke-linecap="round"/>
+    <path d="M174 60 C171 82 178 94 176 112 C175 123 181 132 188 139" fill="none" stroke="url(#esophagus)" stroke-width="11" stroke-linecap="round"/>
+    <path d="M174 67 C173 86 179 102 178 116" fill="none" stroke="#fff1bd" stroke-width="2.5" stroke-linecap="round" opacity=".9"/>
+    <!-- liver -->
+    <g filter="url(#shadow)">
+      <path d="M105 127 Q121 108 154 117 Q173 120 190 131 Q202 141 190 155 Q165 169 126 161 Q104 158 99 145 Q98 135 105 127Z" fill="url(#liver)" stroke="#642c31" stroke-width="2"/>
+      <path d="M150 119 Q151 137 142 158" fill="none" stroke="#d77c68" stroke-width="3" opacity=".7"/>
+      <path d="M132 162 Q143 169 151 181 Q151 193 142 194 Q132 188 133 177Z" fill="#5c9b58" stroke="#34734b" stroke-width="2"/>
+    </g>
+    <!-- stomach -->
+    <g filter="url(#shadow)">
+      <path d="M190 135 C209 126 228 141 226 162 C225 179 211 188 199 199 C187 210 177 223 160 217 C142 211 141 194 151 179 C161 164 171 150 168 137 C166 126 176 123 183 131Z" fill="url(#stomach)" stroke="#a83e57" stroke-width="2.5"/>
+      <path d="M184 143 C195 151 193 165 184 176 C177 186 171 197 163 202" fill="none" stroke="#ffd0bd" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+      <path d="M201 151 Q215 164 202 178" fill="none" stroke="#d45d6b" stroke-width="3" stroke-linecap="round"/>
+    </g>
+    <!-- pancreas -->
+    <path d="M158 224 Q173 211 193 219 Q208 225 220 220 Q228 219 226 228 Q210 238 194 235 Q174 232 160 239 Q151 238 158 224Z" fill="#f3bd69" stroke="#bd8840" stroke-width="2" filter="url(#shadow)"/>
+    <path d="M165 228 Q187 224 214 228" stroke="#fff0bf" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- small intestine coiled loops -->
+    <g fill="none" stroke="#a63e56" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)">
+      <path d="M132 246 C113 244 111 262 127 266 C144 270 166 252 182 261 C199 270 186 286 169 284 C150 281 130 278 126 293 C121 309 145 316 160 305 C177 293 196 303 193 317 C190 330 169 332 154 324"/>
+    </g>
+    <g fill="none" stroke="url(#intestine)" stroke-width="11" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M132 246 C113 244 111 262 127 266 C144 270 166 252 182 261 C199 270 186 286 169 284 C150 281 130 278 126 293 C121 309 145 316 160 305 C177 293 196 303 193 317 C190 330 169 332 154 324"/>
+    </g>
+    <path d="M131 251 C120 251 119 261 130 262 M173 263 Q188 264 184 274 M143 290 Q132 298 143 304 M173 309 Q185 307 181 318" fill="none" stroke="#ffd2b3" stroke-width="2.2" stroke-linecap="round"/>
+    <!-- large intestine frame -->
+    <g fill="none" stroke="#286e67" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" filter="url(#shadow)">
+      <path d="M119 247 L119 225 Q119 214 132 214 L210 214 Q226 214 226 230 L226 307 Q226 340 198 340 L143 340 Q111 340 111 310 L111 280"/>
+    </g>
+    <g fill="none" stroke="url(#colon)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M119 247 L119 225 Q119 214 132 214 L210 214 Q226 214 226 230 L226 307 Q226 340 198 340 L143 340 Q111 340 111 310 L111 280"/>
+    </g>
+    <g stroke="#bce4b7" stroke-width="2" stroke-linecap="round" opacity=".8">
+      <path d="M111 229 l15 0 M111 241 l15 0 M218 233 l15 0 M218 249 l15 0 M218 266 l15 0 M218 283 l15 0 M218 300 l15 0 M129 332 l0 14 M148 332 l0 14 M168 332 l0 14 M188 332 l0 14"/>
+    </g>
+    <!-- rectum -->
+    <path d="M168 340 Q166 353 172 366 L172 379" fill="none" stroke="#3c897a" stroke-width="15" stroke-linecap="round"/>
+    <path d="M168 340 Q166 353 172 366 L172 379" fill="none" stroke="#9bd2a0" stroke-width="9" stroke-linecap="round"/>
+    <!-- labels and pointers -->
+    <g font-family="system-ui,sans-serif" font-size="10.5" font-weight="750" fill="#17324f">
+      <path d="M210 37 L245 37" stroke="#8b5d71" stroke-width="1.5"/><text x="249" y="40">ปาก</text><text x="249" y="51" font-size="8.5" fill="#547087">Mouth</text>
+      <path d="M180 91 L229 91" stroke="#b27a48" stroke-width="1.5"/><text x="233" y="88">หลอดอาหาร</text><text x="233" y="99" font-size="8.5" fill="#547087">Esophagus</text>
+      <path d="M119 139 L68 139" stroke="#8a4a43" stroke-width="1.5"/><text x="8" y="135">ตับ</text><text x="8" y="146" font-size="8.5" fill="#547087">Liver</text>
+      <path d="M208 171 L254 171" stroke="#b94b62" stroke-width="1.5"/><text x="258" y="168">กระเพาะ</text><text x="258" y="179" font-size="8.5" fill="#547087">Stomach</text>
+      <path d="M202 228 L255 228" stroke="#bf914a" stroke-width="1.5"/><text x="259" y="225">ตับอ่อน</text><text x="259" y="236" font-size="8.5" fill="#547087">Pancreas</text>
+      <path d="M194 286 L256 286" stroke="#b94b62" stroke-width="1.5"/><text x="260" y="283">ลำไส้เล็ก</text><text x="260" y="294" font-size="8.5" fill="#547087">Small bowel</text>
+      <path d="M112 310 L61 310" stroke="#438b79" stroke-width="1.5"/><text x="5" y="306">ลำไส้ใหญ่</text><text x="5" y="317" font-size="8.5" fill="#547087">Large bowel</text>
+      <path d="M172 366 L222 366" stroke="#438b79" stroke-width="1.5"/><text x="226" y="363">ไส้ตรง</text><text x="226" y="374" font-size="8.5" fill="#547087">Rectum</text>
+    </g>
+    <!-- moving food particle -->
+    <circle id="foodDot" cx="180" cy="42" r="7" fill="#ffd24f" stroke="#925b00" stroke-width="2"><animate attributeName="r" values="6;8;6" dur="1.2s" repeatCount="indefinite"/></circle>
+   </svg>
+   <div class="diagram-note" data-th="ภาพจำลองเชิงแผนผังเพื่อสังเกตเส้นทางอาหาร (ไม่ใช่ภาพกายวิภาคตามสัดส่วนจริง)" data-en="Schematic simulation for tracing food (not anatomically to scale)">ภาพจำลองเชิงแผนผังเพื่อสังเกตเส้นทางอาหาร (ไม่ใช่ภาพกายวิภาคตามสัดส่วนจริง)</div>
+   <div class="foodpath" id="foodpath"></div>
+  </div>
+  <div>
+   <h3 data-th="🎮 ห้องทดลองแบบโต้ตอบ" data-en="🎮 Interactive lab">🎮 ห้องทดลองแบบโต้ตอบ</h3>
+   <div class="control"><label for="foodSelect"><span data-th="1. เลือกอาหาร" data-en="1. Choose food">1. เลือกอาหาร</span></label><select id="foodSelect"><option value="bread">ขนมปัง / Bread (แป้ง)</option><option value="egg">ไข่ / Egg (โปรตีน)</option><option value="oil">น้ำมัน / Oil (ไขมัน)</option><option value="milk">นม / Milk (หลายสารอาหาร)</option><option value="rice">ข้าว / Rice (แป้ง)</option></select></div>
+   <div class="control"><label for="enzymeSelect"><span data-th="2. เลือกเอนไซม์" data-en="2. Choose enzyme">2. เลือกเอนไซม์</span></label><select id="enzymeSelect"><option value="">— เลือกเอนไซม์ —</option><option value="amylase">อะไมเลส / Amylase</option><option value="pepsin">เพปซิน / Pepsin</option><option value="trypsin">ทริปซิน / Trypsin</option><option value="lipase">ไลเปส / Lipase</option><option value="maltase">มอลเทส / Maltase</option><option value="none">ไม่มีเอนไซม์ / No enzyme</option></select></div>
+   <div class="control"><label for="organSelect"><span data-th="3. ตำแหน่งในทางเดินอาหาร" data-en="3. Digestive location">3. ตำแหน่งในทางเดินอาหาร</span></label><select id="organSelect"><option value="mouth">ปาก / Mouth</option><option value="esophagus">หลอดอาหาร / Esophagus</option><option value="stomach">กระเพาะอาหาร / Stomach</option><option value="small">ลำไส้เล็ก / Small intestine</option><option value="large">ลำไส้ใหญ่ / Large intestine</option></select></div>
+   <div class="control"><label for="speed"><span data-th="4. ความเร็วการเคลื่อนที่" data-en="4. Movement speed">4. ความเร็วการเคลื่อนที่</span><b id="speedValue">กลาง</b></label><input id="speed" type="range" min="1" max="5" value="3"></div>
+   <div class="control"><label for="travel"><span data-th="ตำแหน่งอาหารตามเส้นทาง" data-en="Food position along the tract">ตำแหน่งอาหารตามเส้นทาง</span><b id="travelValue">1/5</b></label><input id="travel" type="range" min="1" max="5" value="1"></div>
+   <button class="teal" id="checkMatch" data-th="ตรวจสอบการจับคู่" data-en="Check match">ตรวจสอบการจับคู่</button> <button class="secondary" id="randomFood" data-th="🎲 สุ่มอาหาร" data-en="🎲 Random food">🎲 สุ่มอาหาร</button>
+   <div class="result" id="result" role="status" aria-live="polite">เลือกอาหาร เอนไซม์ และตำแหน่ง แล้วกด “ตรวจสอบการจับคู่”</div>
+  </div>
+ </div>
+ <div class="callout" id="stageTip" style="margin-top:16px"></div>
+ <div id="stageTask"></div>
+ <div class="no-print" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button class="gold" id="completeStage" data-th="ส่งภารกิจด่านนี้" data-en="Submit stage mission">ส่งภารกิจด่านนี้</button><span id="stageStatus" role="status"></span></div>
+</section>
+<section class="panel" id="quizPanel">
+ <h2 data-th="🧠 แบบทดสอบท้ายกิจกรรม" data-en="🧠 End-of-activity quiz">🧠 แบบทดสอบท้ายกิจกรรม</h2>
+ <p data-th="ตอบคำถาม 5 ข้อ แล้วตรวจคำตอบเพื่อทบทวนความเข้าใจ" data-en="Answer five questions, then check to review your understanding.">ตอบคำถาม 5 ข้อ แล้วตรวจคำตอบเพื่อทบทวนความเข้าใจ</p>
+ <div id="quizQuestions"></div><button class="primary" id="gradeQuiz" data-th="ตรวจคำตอบ" data-en="Check answers">ตรวจคำตอบ</button> <span id="quizResult" role="status"></span>
+</section>
+<section class="panel hidden" id="certificatePanel">
+ <div class="certificate" id="certificate">
+  <div style="font-size:2.5rem">🏅 🧬 🏅</div><h2>Certificate of Achievement</h2>
+  <h3 data-th="เกียรติบัตรนักผจญภัยระบบย่อยอาหาร" data-en="Digestive System Adventure">เกียรติบัตรนักผจญภัยระบบย่อยอาหาร</h3>
+  <p data-th="มอบให้แก่" data-en="This certificate is proudly presented to">มอบให้แก่</p><div class="student" id="certName">นักเรียน</div>
+  <p id="certClass"></p><p data-th="ผู้สำเร็จภารกิจครบทั้ง 3 ด่าน แสดงความเข้าใจเกี่ยวกับโครงสร้างและหน้าที่ของระบบย่อยอาหาร" data-en="For completing all three stages and demonstrating understanding of digestive system structures and functions.">ผู้สำเร็จภารกิจครบทั้ง 3 ด่าน แสดงความเข้าใจเกี่ยวกับโครงสร้างและหน้าที่ของระบบย่อยอาหาร</p>
+  <h3><span data-th="คะแนนรวม" data-en="Total score">คะแนนรวม</span>: <span id="certScore">30</span>/30</h3><p id="certDate"></p>
+  </div><div class="no-print" style="text-align:center;margin-top:14px"><button class="primary" id="printCert" data-th="🖨️ พิมพ์ / บันทึกเป็น PDF" data-en="🖨️ Print / Save as PDF">🖨️ พิมพ์ / บันทึกเป็น PDF</button></div>
+</section>
+<section class="panel">
+ <h3 data-th="🔎 ความรู้สำคัญที่ค้นพบ" data-en="🔎 Key discoveries">🔎 ความรู้สำคัญที่ค้นพบ</h3>
+ <ul>
+  <li data-th="การย่อยเชิงกลทำให้อาหารมีขนาดเล็กลง เช่น การบดเคี้ยวและการบีบคลุกของกระเพาะ แต่ไม่ได้เปลี่ยนชนิดโมเลกุลสารอาหารโดยตรง" data-en="Mechanical digestion breaks food into smaller pieces, such as chewing and stomach churning, without directly changing nutrient molecules.">การย่อยเชิงกลทำให้อาหารมีขนาดเล็กลง เช่น การบดเคี้ยวและการบีบคลุกของกระเพาะ แต่ไม่ได้เปลี่ยนชนิดโมเลกุลสารอาหารโดยตรง</li>
+  <li data-th="อะไมเลสย่อยแป้งเป็นน้ำตาลโมเลกุลเล็กลง เพปซินและทริปซินย่อยโปรตีนเป็นสายเปปไทด์สั้นลง ไลเปสย่อยไขมันเป็นกรดไขมันและโมโนกลีเซอไรด์" data-en="Amylase breaks starch into smaller sugars; pepsin and trypsin break proteins into shorter peptides; lipase breaks fats into fatty acids and monoglycerides.">อะไมเลสย่อยแป้งเป็นน้ำตาลโมเลกุลเล็กลง เพปซินและทริปซินย่อยโปรตีนเป็นสายเปปไทด์สั้นลง ไลเปสย่อยไขมันเป็นกรดไขมันและโมโนกลีเซอไรด์</li>
+  <li data-th="น้ำดีไม่ใช่เอนไซม์ แต่ช่วยทำให้ไขมันแตกเป็นหยดเล็ก ๆ เพื่อเพิ่มพื้นที่ให้ไลเปสทำงาน" data-en="Bile is not an enzyme; it emulsifies fat droplets, increasing the surface area for lipase.">น้ำดีไม่ใช่เอนไซม์ แต่ช่วยทำให้ไขมันแตกเป็นหยดเล็ก ๆ เพื่อเพิ่มพื้นที่ให้ไลเปสทำงาน</li>
+  <li data-th="การดูดซึมสารอาหารส่วนใหญ่เกิดในลำไส้เล็ก โดยวิลลัสและไมโครวิลลัสช่วยเพิ่มพื้นที่ผิว ส่วนลำไส้ใหญ่ดูดซึมน้ำและอิเล็กโทรไลต์บางส่วน" data-en="Most nutrient absorption occurs in the small intestine. Villi and microvilli increase surface area; the large intestine absorbs water and some electrolytes.">การดูดซึมสารอาหารส่วนใหญ่เกิดในลำไส้เล็ก โดยวิลลัสและไมโครวิลลัสช่วยเพิ่มพื้นที่ผิว ส่วนลำไส้ใหญ่ดูดซึมน้ำและอิเล็กโทรไลต์บางส่วน</li>
+ </ul>
+ <p class="callout" data-th="หมายเหตุ: สื่อนี้เป็นแบบจำลองเพื่อการเรียนรู้ ไม่ใช่ภาพ AR/3D ทางการแพทย์จริง โหมดกล้อง AR ต้องอาศัยสิทธิ์กล้องและการเปิดผ่าน HTTPS หรือ localhost ในไฟล์ออฟไลน์นี้จึงใช้ภาพจำลองแบบโต้ตอบแทน เพื่อให้กิจกรรมหลักทำงานได้โดยไม่ใช้อินเทอร์เน็ต" data-en="Note: This is an educational schematic, not a medical-grade AR/3D model. Camera AR requires camera permission and HTTPS or localhost; this offline file uses an interactive schematic so the core activity works without internet.">หมายเหตุ: สื่อนี้เป็นแบบจำลองเพื่อการเรียนรู้ ไม่ใช่ภาพ AR/3D ทางการแพทย์จริง โหมดกล้อง AR ต้องอาศัยสิทธิ์กล้องและการเปิดผ่าน HTTPS หรือ localhost ในไฟล์ออฟไลน์นี้จึงใช้ภาพจำลองแบบโต้ตอบแทน เพื่อให้กิจกรรมหลักทำงานได้โดยไม่ใช้อินเทอร์เน็ต</p>
+</section>
+</main><footer>Digestive System Adventure • สื่อการเรียนรู้แบบ Active Learning & Gamification</footer>
+<script>
+const $=id=>document.getElementById(id);
+let lang='th', profile={first:'',last:'',className:'',no:''}, completed=[false,false,false], currentStage=0, matchCorrect=false;
+const stages=[
+ {title:'Mouth Mission — เปิดประตูเส้นทางอาหาร',enTitle:'Mouth Mission — Open the food pathway',intro:'อาหารเริ่มต้นที่ปาก ฟันบดอาหาร ลิ้นช่วยคลุกเคล้าและกลืน และอะไมเลสในน้ำลายเริ่มย่อยแป้ง',enIntro:'Food begins in the mouth. Teeth break it down, the tongue mixes and helps swallow, and salivary amylase starts starch digestion.',tip:'ภารกิจ: เลือกอาหารที่มีแป้ง จับคู่อะไมเลสกับตำแหน่งปาก แล้วอธิบายว่าการบดเคี้ยวต่างจากการย่อยเคมีอย่างไร',enTip:'Mission: choose a starchy food, match amylase to the mouth, and explain how chewing differs from chemical digestion.',task:'คำถามสืบเสาะ: เหตุใดการเคี้ยวอาหารให้ละเอียดจึงช่วยให้เอนไซม์ทำงานได้ดีขึ้น?',enTask:'Inquiry: Why does thorough chewing help enzymes work more effectively?'},
+ {title:'Stomach Challenge — พิชิตห้องทดลองน้ำย่อย',enTitle:'Stomach Challenge — Digestive juice lab',intro:'กระเพาะอาหารคลุกเคล้าอาหาร กรดไฮโดรคลอริกช่วยสร้างสภาพกรดที่เหมาะกับเพปซิน ส่วนตับอ่อนส่งเอนไซม์ไปทำงานในลำไส้เล็ก',enIntro:'The stomach churns food. Hydrochloric acid creates conditions for pepsin, while the pancreas releases enzymes that work in the small intestine.',tip:'ภารกิจ: จับคู่เพปซินกับโปรตีนในกระเพาะอาหาร และจำไว้ว่าน้ำดีผลิตจากตับ เก็บในถุงน้ำดี และไม่ใช่เอนไซม์',enTip:'Mission: match pepsin with protein in the stomach. Remember: bile is made by the liver, stored in the gallbladder, and is not an enzyme.',task:'คำถามสืบเสาะ: เพราะเหตุใดน้ำดีจึงช่วยการย่อยไขมันได้ แม้ไม่ใช่เอนไซม์?',enTask:'Inquiry: Why does bile help fat digestion even though it is not an enzyme?'},
+ {title:'Intestine Escape — กอบกู้พลังงานและกำจัดกากอาหาร',enTitle:'Intestine Escape — Absorb nutrients and clear waste',intro:'ลำไส้เล็กเป็นบริเวณหลักของการย่อยต่อและดูดซึมสารอาหาร วิลลัสและไมโครวิลลัสเพิ่มพื้นที่ผิว ลำไส้ใหญ่ดูดซึมน้ำบางส่วน',enIntro:'The small intestine completes much digestion and absorbs most nutrients. Villi and microvilli increase surface area; the large intestine absorbs some water.',tip:'ภารกิจ: เลือกไลเปสและลำไส้เล็กเพื่ออธิบายการย่อยไขมัน จากนั้นเปรียบเทียบหน้าที่ของลำไส้เล็กกับลำไส้ใหญ่',enTip:'Mission: select lipase and the small intestine to explain fat digestion, then compare the small and large intestines.',task:'คำถามสืบเสาะ: โครงสร้างวิลลัสและไมโครวิลลัสช่วยให้ดูดซึมได้มีประสิทธิภาพอย่างไร?',enTask:'Inquiry: How do villi and microvilli make absorption more efficient?'}
+];
+const foodInfo={bread:{name:'ขนมปัง',en:'Bread',type:'starch',enType:'starch'},rice:{name:'ข้าว',en:'Rice',type:'starch',enType:'starch'},egg:{name:'ไข่',en:'Egg',type:'protein',enType:'protein'},oil:{name:'น้ำมัน',en:'Oil',type:'fat',enType:'fat'},milk:{name:'นม',en:'Milk',type:'mixed',enType:'mixed'}};
+const enzymeInfo={amylase:{name:'อะไมเลส',en:'Amylase',type:'starch',places:['mouth','small'],desc:'ย่อยแป้งให้เป็นน้ำตาลโมเลกุลเล็กลง เช่น มอลโทส'},pepsin:{name:'เพปซิน',en:'Pepsin',type:'protein',places:['stomach'],desc:'ย่อยโปรตีนให้เป็นสายเปปไทด์สั้นลง'},trypsin:{name:'ทริปซิน',en:'Trypsin',type:'protein',places:['small'],desc:'เอนไซม์จากตับอ่อน ย่อยโปรตีน/เปปไทด์ในลำไส้เล็ก'},lipase:{name:'ไลเปส',en:'Lipase',type:'fat',places:['small'],desc:'ย่อยไขมันเป็นกรดไขมันและโมโนกลีเซอไรด์'},maltase:{name:'มอลเทส',en:'Maltase',type:'starch',places:['small'],desc:'ย่อยมอลโทสเป็นกลูโคส'},none:{name:'ไม่มีเอนไซม์',en:'No enzyme',type:'none',places:[],desc:'ไม่มีการย่อยเคมีโดยเอนไซม์ที่เลือก'}};
+const organs={mouth:{name:'ปาก',en:'Mouth'},esophagus:{name:'หลอดอาหาร',en:'Esophagus'},stomach:{name:'กระเพาะอาหาร',en:'Stomach'},small:{name:'ลำไส้เล็ก',en:'Small intestine'},large:{name:'ลำไส้ใหญ่',en:'Large intestine'}};
+const quiz=[
+ {q:'เอนไซม์ใดเริ่มย่อยแป้งในปาก?',en:'Which enzyme begins starch digestion in the mouth?',a:['เพปซิน / Pepsin','อะไมเลส / Amylase','ไลเปส / Lipase','ทริปซิน / Trypsin'],correct:1,why:'อะไมเลสในน้ำลายเริ่มย่อยแป้งในปาก'},
+ {q:'เอนไซม์เพปซินทำงานเด่นในอวัยวะใด?',en:'Where does pepsin mainly work?',a:['ปาก / Mouth','หลอดอาหาร / Esophagus','กระเพาะอาหาร / Stomach','ลำไส้ใหญ่ / Large intestine'],correct:2,why:'เพปซินทำงานในสภาพกรดของกระเพาะอาหาร'},
+ {q:'ข้อใดกล่าวถูกต้องเกี่ยวกับน้ำดี?',en:'Which statement about bile is correct?',a:['เป็นเอนไซม์ย่อยโปรตีน / Protein enzyme','ผลิตจากถุงน้ำดี / Made by gallbladder','ช่วยทำให้ไขมันแตกเป็นหยดเล็ก / Emulsifies fat','ย่อยแป้งเป็นกลูโคส / Digests starch'],correct:2,why:'น้ำดีผลิตจากตับและช่วยอิมัลซิไฟไขมัน แต่ไม่ใช่เอนไซม์'},
+ {q:'บริเวณใดดูดซึมสารอาหารส่วนใหญ่?',en:'Where are most nutrients absorbed?',a:['กระเพาะอาหาร / Stomach','ลำไส้เล็ก / Small intestine','หลอดอาหาร / Esophagus','ปาก / Mouth'],correct:1,why:'ลำไส้เล็กมีวิลลัสและไมโครวิลลัสเพิ่มพื้นที่ดูดซึม'},
+ {q:'หน้าที่สำคัญของลำไส้ใหญ่คือข้อใด?',en:'What is a key function of the large intestine?',a:['เริ่มย่อยแป้ง / Start starch digestion','ผลิตน้ำดี / Produce bile','ดูดซึมน้ำและอิเล็กโทรไลต์บางส่วน / Absorb some water and electrolytes','ผลิตเพปซิน / Produce pepsin'],correct:2,why:'ลำไส้ใหญ่ดูดซึมน้ำและอิเล็กโทรไลต์บางส่วนและช่วยก่อตัวอุจจาระ'}
+];
+function t(th,en){return lang==='th'?th:en}
+function save(){try{localStorage.setItem('digestiveAdventureV1',JSON.stringify({profile,completed}));}catch(e){}}
+function load(){try{const d=JSON.parse(localStorage.getItem('digestiveAdventureV1')||'null');if(d){profile=d.profile||profile;completed=d.completed||completed;}}catch(e){}}
+function renderLang(){document.documentElement.lang=lang;document.querySelectorAll('[data-th]').forEach(el=>el.textContent=el.dataset[lang]);$('langBtn').textContent=lang==='th'?'EN / TH':'TH / EN';$('gameTitle').textContent=stages[currentStage][lang==='th'?'title':'enTitle'];$('gameIntro').textContent=stages[currentStage][lang==='th'?'intro':'enIntro'];$('stageTip').textContent=stages[currentStage][lang==='th'?'tip':'enTip'];$('stageTask').innerHTML='<div class="callout" style="margin-top:12px"><b>'+t('🔍 ภารกิจสืบเสาะ: ','🔍 Inquiry: ')+'</b>'+stages[currentStage][lang==='th'?'task':'enTask']+'</div>';renderQuiz();updateDashboard();updateResultLanguage();}
+function updateDashboard(){const score=completed.filter(Boolean).length*10;$('score').textContent=score;$('completed').textContent=completed.filter(Boolean).length;$('progress').style.width=(completed.filter(Boolean).length/3*100)+'%';for(let i=0;i<3;i++){const unlocked=i===0||completed.slice(0,i).every(Boolean);$('stageCard'+i).classList.toggle('locked',!unlocked);$('open'+i).disabled=!unlocked;$('open'+i).textContent=completed[i]?t('เล่นซ้ำ','Replay'):unlocked?t('เริ่มด่าน '+(i+1),'Start stage '+(i+1)):t('ล็อกอยู่','Locked');}if(completed.every(Boolean)){const full=[profile.first,profile.last].filter(Boolean).join(' ')||t('นักสำรวจผู้กล้า','Brave Explorer');$('certName').textContent=full;$('certClass').textContent=[profile.className,profile.no?(t('เลขที่ ','No. ')+profile.no):''].filter(Boolean).join(' • ');$('certScore').textContent=score;$('certDate').textContent=new Date().toLocaleDateString(lang==='th'?'th-TH':'en-GB');$('certificatePanel').classList.remove('hidden');}else $('certificatePanel').classList.add('hidden');}
+function updatePath(){const keys=['mouth','esophagus','stomach','small','large'];const pos=Number($('travel').value)-1;$('travelValue').textContent=(pos+1)+'/5';$('foodpath').innerHTML=keys.map((k,i)=>`${i?'<span class="arrow">➜</span>':''}<span class="organ ${i===pos?'current':''}">${t(organs[k].name,organs[k].en)}</span>`).join('');const coords=[[180,42],[176,96],[184,170],[164,286],[226,283]][pos];$('foodDot').setAttribute('cx',coords[0]);$('foodDot').setAttribute('cy',coords[1]);}
+function evaluate(){const food=foodInfo[$('foodSelect').value],enz= enzymeInfo[$('enzymeSelect').value],org=$('organSelect').value;let ok=!!enz&&enz.type===food.type&&enz.places.includes(org);if(food.type==='mixed'&&enz&&enz.type!=='none')ok=enz.places.includes(org);if($('enzymeSelect').value==='none')ok=false;matchCorrect=ok;let message='';if(ok){message=t('ถูกต้อง! ','Correct! ')+t(enz.name,enz.en)+' '+t('ทำงานกับสารอาหารที่เลือกได้ในตำแหน่งนี้ ','can act on the selected nutrient at this location. ')+t('ผลที่เกิดขึ้น: ','Result: ')+enz.desc+'.';}else{message=t('ลองคิดอีกครั้ง: ','Try again: ')+t('ตรวจสอบชนิดสารอาหาร ตำแหน่งที่เอนไซม์ทำงาน และหน้าที่ของเอนไซม์','check the nutrient type, where the enzyme works, and its function.')+' '+t('ตัวอย่าง: ','Example: ')+t('อะไมเลสย่อยแป้งในปากและลำไส้เล็ก เพปซินย่อยโปรตีนในกระเพาะอาหาร ส่วนไลเปสทำงานหลักในลำไส้เล็ก','amylase digests starch in the mouth and small intestine, pepsin digests protein in the stomach, and lipase mainly works in the small intestine')+'.';}
+$('result').className='result'+(ok?'':' bad');$('result').textContent=message;return ok;}
+function updateResultLanguage(){if($('result').textContent.trim())$('result').textContent=t('เลือกอาหาร เอนไซม์ และตำแหน่ง แล้วกด “ตรวจสอบการจับคู่”','Choose food, enzyme, and location, then press “Check match”.');$('speedValue').textContent=t(['ช้ามาก','ช้า','กลาง','เร็ว','เร็วมาก'][Number($('speed').value)-1],['Very slow','Slow','Medium','Fast','Very fast'][Number($('speed').value)-1]);}
+function openStage(i){currentStage=i;$('gamePanel').classList.add('active');$('stagePill').textContent='STAGE '+(i+1)+' • '+(completed[i]?'✓ COMPLETED':'10 POINTS');$('gameTitle').textContent=stages[i][lang==='th'?'title':'enTitle'];$('gameIntro').textContent=stages[i][lang==='th'?'intro':'enIntro'];$('stageTip').textContent=stages[i][lang==='th'?'tip':'enTip'];$('stageTask').innerHTML='<div class="callout" style="margin-top:12px"><b>'+t('🔍 ภารกิจสืบเสาะ: ','🔍 Inquiry: ')+'</b>'+stages[i][lang==='th'?'task':'enTask']+'</div>';$('stageStatus').textContent='';$('result').textContent=t('เลือกอาหาร เอนไซม์ และตำแหน่ง แล้วกด “ตรวจสอบการจับคู่”','Choose food, enzyme, and location, then press “Check match”.');updatePath();$('gamePanel').scrollIntoView({behavior:'smooth',block:'start'});}
+function renderQuiz(){$('quizQuestions').innerHTML=quiz.map((q,i)=>`<div class="question" data-q="${i}"><p>${i+1}. ${q[lang==='th'?'q':'en']}</p><div class="choices">${q.a.map((a,j)=>`<label><input type="radio" name="q${i}" value="${j}">${a}</label>`).join('')}</div><div class="feedback" id="qfeed${i}"></div></div>`).join('');$('quizResult').textContent='';}
+$('langBtn').addEventListener('click',()=>{lang=lang==='th'?'en':'th';renderLang();});
+$('saveProfile').addEventListener('click',()=>{profile={first:$('firstName').value.trim(),last:$('lastName').value.trim(),className:$('className').value.trim(),no:$('studentNo').value.trim()};save();$('profileMsg').textContent=t(' บันทึกข้อมูลแล้ว',' Profile saved');$('profileMsg').style.color='#087a6d';updateDashboard();});
+$('open0').onclick=()=>openStage(0);$('open1').onclick=()=>openStage(1);$('open2').onclick=()=>openStage(2);$('backBtn').onclick=()=>{$('gamePanel').classList.remove('active');$('dashboard').scrollIntoView({behavior:'smooth'});};
+$('checkMatch').onclick=evaluate;
+$('randomFood').onclick=()=>{const vals=Object.keys(foodInfo),v=vals[Math.floor(Math.random()*vals.length)];$('foodSelect').value=v;$('enzymeSelect').value='';$('result').className='result';$('result').textContent=t('สุ่มได้: ','Random food: ')+t(foodInfo[v].name,foodInfo[v].en)+'. '+t('เลือกเอนไซม์และตำแหน่งเพื่อทดลองต่อ','Choose an enzyme and location to continue.');};
+$('travel').addEventListener('input',updatePath);$('speed').addEventListener('input',()=>{$('speedValue').textContent=t(['ช้ามาก','ช้า','กลาง','เร็ว','เร็วมาก'][Number($('speed').value)-1],['Very slow','Slow','Medium','Fast','Very fast'][Number($('speed').value)-1]);$('foodDot').style.transition=`cy ${1.2/Number($('speed').value)}s ease`;});
+$('completeStage').onclick=()=>{const good=evaluate();if(!good){$('stageStatus').textContent=t('ยังจับคู่ไม่ถูก ลองปรับตัวเลือกแล้วตรวจสอบอีกครั้ง','The match is not correct yet. Adjust your choices and try again.');$('stageStatus').style.color='#b42335';return;}if(currentStage>0&&!completed.slice(0,currentStage).every(Boolean)){return;}completed[currentStage]=true;save();updateDashboard();$('stagePill').textContent='STAGE '+(currentStage+1)+' • ✓ COMPLETED';$('stageStatus').textContent=t('สำเร็จ! ได้รับ 10 คะแนน','Mission complete! You earned 10 points.');$('stageStatus').style.color='#087a6d';if(currentStage<2&&!completed[currentStage+1])setTimeout(()=>openStage(currentStage+1),650);else $('dashboard').scrollIntoView({behavior:'smooth'});};
+$('gradeQuiz').onclick=()=>{let score=0;quiz.forEach((q,i)=>{const selected=document.querySelector(`input[name="q${i}"]:checked`),feed=$('qfeed'+i);if(selected&&Number(selected.value)===q.correct){score++;feed.style.color='#087a6d';feed.textContent=t('ถูกต้อง — ','Correct — ')+q.why;}else{feed.style.color='#b42335';feed.textContent=t('เฉลย: ','Answer: ')+q.a[q.correct]+'. '+q.why;}});$('quizResult').textContent=t(`ได้ ${score}/5 คะแนน`,`Score: ${score}/5`);};
+$('printCert').onclick=()=>window.print();
+load();$('firstName').value=profile.first;$('lastName').value=profile.last;$('className').value=profile.className;$('studentNo').value=profile.no;
+renderLang();updatePath();
+</script>
+</body>
+</html>
